@@ -35,10 +35,10 @@ import (
 
 type TestStruct struct {
     // This field will be fetched from AWS Secrets Manager (see https://aws.amazon.com/en/secrets-manager/).
-    FieldAWSSecretsManager string `secretstruct:"awssecretsmanager://?val=test-string-value-from-aws-secrets-manager"`
+    FieldAWSSecretsManager string `secretstruct:"awssecretsmanager://test-string-value-from-aws-secrets-manager"`
     
     // This field will be fetched from GCP Secret Manager (see https://cloud.google.com/secret-manager).
-    FieldGCPSecretManager string `secretstruct:"gcpsecretmanager://?val=test-string-value-from-gcp-secret-manager"`
+    FieldGCPSecretManager string `secretstruct:"gcpsecretmanager://test-string-value-from-gcp-secret-manager"`
     
     // This field will be fetched using the URL from the current FieldAWSParamStore field value
     // (see struct init below).
@@ -49,7 +49,7 @@ func main() {
     ctx := context.Background()
     testStruct := TestStruct{
         // This field will be fetched from AWS Param Store.
-        FieldAWSParamStore: "awsparamstore://?val=test-string-value-from-aws-param-store",
+        FieldAWSParamStore: "awsparamstore://test-string-value-from-aws-param-store",
     }
 
     // Call Process to fetch all string values marked with `secretstruct` tag.
@@ -66,15 +66,15 @@ Embedded and internal structs are also supported:
 
 ```go
 type EmbeddedStruct struct {
-    EmbeddedField string `secretstruct:"awssecretsmanager://?val=test-string-value-from-aws-secrets-manager"`
+    EmbeddedField string `secretstruct:"awssecretsmanager://test-string-value-from-aws-secrets-manager"`
 }
 
 type TestStruct struct {
     EmbeddedStruct
     InnerStruct struct {
-        FieldAWSSecretsManager string `secretstruct:"awssecretsmanager://?val=test-string-value-from-aws-secrets-manager"`
+        FieldAWSSecretsManager string `secretstruct:"awssecretsmanager://test-string-value-from-aws-secrets-manager"`
     }
-    FieldGCPSecretManager string `secretstruct:"gcpsecretmanager://?val=test-string-value-from-gcp-secret-manager"`
+    FieldGCPSecretManager string `secretstruct:"gcpsecretmanager://test-string-value-from-gcp-secret-manager"`
 }
 ```
 
